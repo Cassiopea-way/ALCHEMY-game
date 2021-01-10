@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Это заголовок тайтл</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	</head>
+	<style>
+       body {background-color: #14313d;
+	         position:relative;}
+	   .dragelements{}
+       .nextmenuelements{}	   
+	   #menuelements{width:200px;
+	                 height:600px;
+					 border:1px solid skyblue;
+					 border-radius:5px;
+					 position:absolute;
+					 box-shadow:0 0 5px skyblue;}
+	   #menuelements ul {
+	      margin:0px;
+          padding:0px;		  
+	   }
+	   #menuelements ul li {
+	     list-style-type:none;
+		 background-color:grey;
+		 margin: 2px;
+		 border-radius:5px;
+		 text-align:justify;
+	   }
+	   #menuelements ul li img {margin-right:120px;}
+	   li {border:1px solid #14313d;}
+	   h3 {color:black;
+	       display:block;
+		   margin-left:100px;
+		   margin-top:-42px;}
+	   #magiccircle {position:absolute;
+	                 left:300px;
+	                 top:30px;}
+	   #portal      {position:absolute;
+	                 left:840px;
+	                 top:110px;
+					 }			 
+	   #magiccircleaction {position:relative;
+	                       left:420px;
+	                       top:70px;
+						   width:400px;
+						   height:400px;
+						   border-radius:200px;
+						   z-index:2;}
+	   #portalaction {position:absolute;
+				background-position:center center;
+	            width:170px;
+				height:270px;
+				border-radius:85px/135px;
+	            left:880px;
+				top:130px;}
+	   #science {width:150px;
+	             height:150px;
+				 border:1px solid skyblue;
+				 box-shadow:0 0 5px skyblue;
+				 border-radius:5px;
+				 position:absolute;
+				 left:800px;
+				 top:452px;
+				 background-image:url("C:/images/ALCHEMY/delphine.jpg");
+				 background-position:center;}
+	   #holder {width:350px;
+	            height:100px;
+				border-radius:5px;
+				background-color:grey;
+				text-align:center;
+				font-size:18px;
+				position:absolute;
+				left:440px;
+				top:505px;}
+       #nextelementsmenu {width:200px;
+	                      height:500px;
+					      border-radius:5px;
+						  background-color:grey;
+					      position:absolute;
+						  left:1100px;
+						  top:75px;}
+	    #nextelementsmenu ul {margin:0px;
+		                      padding:0px;}
+	    #nextelementsmenu ul li {list-style-type:none;
+	                            text-align:center;
+								margin:15px;
+		                        padding:0px;
+								border:none;}					  
+	   #indicator {position:absolute;
+	               width:150px;
+				   height: 30px;
+				   border:1px solid skyblue;
+				   box-shadow:0 0 5px skyblue;
+	               left:890px;
+				   top:80px;}
+	   #indicatorwave {position:absolute;
+	               width:0px;
+				   height: 30px;
+				   background-color:skyblue;
+	               left:891px;
+				   top:81px;}		   
+	   #quantity { position:absolute;
+	               width:50px;
+				   height: 30px;
+				   color:skyblue;
+				   text-align:center;
+				   font-weight:bold;
+	               left:940px;
+				   top:55px;}
+       #up {position:absolute;
+		    left:1175px;
+		    top:45px;}
+       #down {position:absolute;
+		    left:1175px;
+		    top:585px;}
+       @keyframes anim {
+	     from {}
+		 to {transform: scale(0.1) rotate(360deg);
+		     }
+	   }
+       .elemanim {animation: anim 4s 2;}
+	    @keyframes anim2 {
+	     from {}
+		 to {top:165px;
+		     left:168px;
+		     }
+	   }
+	   .elemanimtocenter {animation: anim2 4s 2;}
+	</style>
+	<body>
+	   <div id = "menuelements"><ul id = "menu"></ul></div>
+	   <img id = "magiccircle" src = "C:/images/ALCHEMY/spell.png">
+	   <div id = "magiccircleaction"></div>
+	   <div id = "quantity"></div>
+	   <div id = "indicator"></div>
+	   <div id = "indicatorwave"></div>
+	   <img id = "portal" src = "C:/images/ALCHEMY/portal.png">
+	   <div id = "portalaction"></div>
+	   <div id = "science"></div>
+	   <div id = "holder"></div>
+	   <div id = "nextelementsmenu"><ul id = "nextmenu"></ul></div>
+	   <img id = "up" src = "C:/images/ALCHEMY/arrowup.png">
+	   <img id = "down" src = "C:/images/ALCHEMY/arrowdown.png">
+	</body>
+	<script>
+	   let massElements = [{
+	     name:['Огонь'],
+		 waysrc:['C:/images/ALCHEMY/elements/fire.png'],
+		 recept:[],
+		 holder:[]
+	   },
+	   {
+	     name:['Вода'],
+		 waysrc:['C:/images/ALCHEMY/elements/water.png'],
+		 recept:[],
+		 holder:[]
+	   },
+	   {
+	     name:['Земля'],
+		 waysrc:['C:/images/ALCHEMY/elements/land.png'],
+		 recept:[],
+		 holder:[]
+	   },
+	   {
+	     name:['Воздух'],
+		 waysrc:['C:/images/ALCHEMY/elements/air.png'],
+		 recept:[],
+		 holder:[]
+	   },
+	   {
+	     name:['Камень'],
+		 waysrc:['C:/images/ALCHEMY/elements/stone.png'],
+		 recept:['Огонь','Земля'],
+		 holder:['При высокой температуре земля становится твёрдой']
+	   },
+	   {
+	     name:['Туман'],
+		 waysrc:['C:/images/ALCHEMY/elements/fog.png'],
+		 recept:['Вода','Воздух'],
+		 holder:['Туман обычно возникает при испарении воды с теплой поверхности в холодный воздух']
+	   },
+	   {
+	     name:['Молния'],
+		 waysrc:['C:/images/ALCHEMY/elements/thunder.png'],
+		 recept:['Огонь','Воздух'],
+		 holder:['электрический искровой разряд в атмосфере, происходит во время грозы, проявляющийся яркой вспышкой света и сопровождающим её громом']
+	   },
+	   {
+	     name:['Грязь'],
+		 waysrc:['C:/images/ALCHEMY/elements/dirt.png'],
+		 recept:['Вода','Земля'],
+		 holder:['жидкая или полужидкая смесь воды и различных видов почвы']
+	   },
+	   {
+	     name:['Облако'],
+		 waysrc:['C:/images/ALCHEMY/elements/cloud.png'],
+		 recept:['Воздух','Туман'],
+		 holder:['взвешенные в атмосфере продукты конденсации водяного пара']
+	   },
+	   {
+	     name:['ДНК'],
+		 waysrc:['C:/images/ALCHEMY/elements/DNK.png'],
+		 recept:['Грязь','Молния'],
+		 holder:['Говорят,что жизнь зародилась в результате резкого подъёма температуры на поверхности Земли']
+	   },
+	   {
+	     name:['Вирус'],
+		 waysrc:['C:/images/ALCHEMY/elements/virus.png'],
+		 recept:['ДНК','ДНК'],
+		 holder:['Вирус появился в результате эволюции на Земле']
+	   },
+	   ];
+	   let holders = ['У тебя есть начальные элементы. Перетащи Огонь и Землю в Круг Превращений.','За раз можно смешать только 2 элемента'];
+	   let menu = document.getElementById('menu');
+       class Element {
+	     constructor(name,waysrc){
+		   this.name = name;
+		   this.waysrc = waysrc;
+		 }
+	   }
+       let fire = new Element('Огонь','C:/images/ALCHEMY/elements/fire.png');
+	   let water = new Element('Вода','C:/images/ALCHEMY/elements/water.png');
+	   let land = new Element('Земля','C:/images/ALCHEMY/elements/land.png');
+	   let air = new Element('Воздух','C:/images/ALCHEMY/elements/air.png');
+	   let current;
+	   let clone;
+	   let offSetX;
+	   let offSetY;
+	   let holder = document.getElementById('holder');
+	   let dragelements = document.getElementsByClassName('dragelements');
+	   let nextmenuelements = document.getElementsByClassName('nextmenuelements');
+	   let magiccircleaction = document.getElementById('magiccircleaction');
+	   let nextelementsmenu = document.getElementById('nextelementsmenu');
+	   let nextmenu = document.getElementById('nextmenu');
+	   let science = document.getElementById('science');
+	   let quantity = document.getElementById('quantity');
+	   let indicator = document.getElementById('indicator');
+	   let indicatorwave = document.getElementById('indicatorwave');
+	   let magiccircleactionTop = 70;
+	   let magiccircleactionLeft = 420;
+	   let openElements = 0;
+	   let AllElements = massElements.length - 1;
+	   function menuNextElems(){
+	     nextmenu.innerHTML = '';
+	     for (let i = 0; i < dragelements.length; i++){
+		    for (let j = 0; j < massElements.length; j++){
+			   if (dragelements[i].lastElementChild.innerHTML == massElements[j].recept[0]){
+			     for (let k = 0; k < dragelements.length; k++){
+				   if (massElements[j].recept[1] == dragelements[k].lastElementChild.innerHTML){
+				     let li = document.createElement('li');
+					 li.style.fontSize = 19 + 'px';
+					 li.style.fontWeight = 'bold';
+					 li.innerHTML = massElements[j].name;
+					 li.classList.add("nextmenuelements");
+					 nextmenu.appendChild(li);
+				   }
+				 }
+			   }
+			}
+		 }
+		 for (let i = 0; i < dragelements.length; i++){
+		    for (let j = 0; j < nextmenuelements.length; j++){
+			   if (dragelements[i].lastElementChild.innerHTML == nextmenuelements[j].innerHTML){
+			     nextmenu.removeChild(nextmenuelements[j]);
+			   }
+			}
+		 }
+	   }
+	   function addStartElement(startelement){
+       let li = document.createElement('li');
+	   li.classList.add("dragelements");
+	   li.setAttribute('draggable','true');
+	   let img = document.createElement('img');
+	   let h3 = document.createElement('h3');
+	   h3.innerHTML = startelement.name;
+	   img.src = startelement.waysrc;
+	   menu.appendChild(li);
+	   li.appendChild(img);
+       li.appendChild(h3);
+       openElements++;
+       quantity.innerHTML = openElements + ' / ' + AllElements;
+       indicatorwave.style.width = indicatorwave.clientWidth + indicator.clientWidth/AllElements + 'px';
+	   console.log(indicatorwave.style.width);
+	   console.log(indicatorwave.clientWidth);
+       }
+	   addStartElement(fire);
+	   addStartElement(water);
+	   addStartElement(land);
+	   addStartElement(air);
+	   holder.innerHTML = holders[0];
+	   menuNextElems();
+	   function dragelem(event){
+		   offSetX = event.offSetX;
+		   offSetY = event.offSetY;
+		   current = this.firstChild;
+		   clone = current.cloneNode(true);
+		   event.dataTransfer.setDragImage(clone,30,30);
+	   }
+	   
+	   for (let i = 0; i < dragelements.length; i++){
+	      dragelements[i].addEventListener('dragstart',dragelem);
+	   }
+	   /*for (let i = 0; i < dragelements.length; i++){
+	     dragelements[i].addEventListener('dragstart',function drag(event){
+		   offSetX = event.offSetX;
+		   offSetY = event.offSetY;
+		   current = this.firstChild;
+		   clone = current.cloneNode(true);
+		   event.dataTransfer.setDragImage(clone,30,30);
+	   });
+	   }*/
+	   
+	   magiccircleaction.addEventListener('dragover',function(event){
+	     event.preventDefault();
+	   });
+	   magiccircleaction.addEventListener('drop', function magiccircledrop(event){
+		 clone.style.position = 'absolute';
+		 clone.setAttribute('draggable','true');
+	     clone.style.top = (event.pageY - magiccircleactionTop - 40) + 'px';
+		 clone.style.left = (event.pageX - magiccircleactionLeft - 40) + 'px';
+		 clone.addEventListener('dragstart',function (event){
+		   clone = this;
+		 });
+	     this.appendChild(clone);
+		 let magicCircleElems = magiccircleaction.children;
+		 if (magicCircleElems.length == 3){
+		   this.removeEventListener('drop',magiccircledrop);
+		   this.removeChild(this.lastElementChild);
+		   holder.innerHTML = holders[1];
+		 }
+	   });
+	   portalaction.addEventListener('dragenter',function (event){
+	     clone.style.top = 100 + 'px';
+		 clone.style.left = 55 + 'px';
+	     this.appendChild(clone);
+		 let portaldelete = this;
+		 clone.classList.add('elemanim');
+		 window.setTimeout(function (){
+		   portaldelete.removeChild(clone);
+		 },4000);
+	    });
+	   magiccircleaction.onclick = function(){
+	     let magicCircleElems = magiccircleaction.children;
+		 if (magicCircleElems.length == 1){
+		    holder.innerHTML = holders[1];
+		 } else {
+		    let elem1,elem2;
+		    for (let i = 0; i < massElements.length; i++){
+			  if (magicCircleElems[0].currentSrc === 'file:///' + massElements[i].waysrc[0]){
+				elem1 = i;
+				magicCircleElems[0].classList.add('elemanimtocenter');
+				 window.setTimeout(function (){
+		           magicCircleElems[0].style.top = 165 + 'px';
+				   magicCircleElems[0].style.left = 168 + 'px';
+		         },4000);
+			  }
+			  if (magicCircleElems[1].currentSrc === 'file:///' + massElements[i].waysrc[0]){
+				elem2 = i;
+				magicCircleElems[1].classList.add('elemanimtocenter');
+				 window.setTimeout(function (){
+		           magicCircleElems[1].style.top = 165 + 'px';
+				   magicCircleElems[1].style.left = 168 + 'px';
+		         },4000);
+			  }
+			}
+			for (let i = 0; i < massElements.length; i++){
+			  for (let j = 0; j < massElements[i].recept.length; j++){
+			    if (massElements[i].recept[j] == massElements[elem1].name){
+				  if (j == 0){
+				    if (massElements[i].recept[1] == massElements[elem2].name){
+					  window.setTimeout(function(){
+					    addStartElement(massElements[i]);
+						magiccircleaction.removeChild(magicCircleElems[0]);
+						magiccircleaction.removeChild(magicCircleElems[0]);
+						clone = dragelements[dragelements.length - 1].firstChild.cloneNode(true);
+						clone.style.position = 'absolute';
+						clone.style.top = 165 + 'px';
+				        clone.style.left = 168 + 'px';
+						magiccircleaction.appendChild(clone);
+						menuNextElems();
+					   for (let i = 0; i < dragelements.length; i++){
+	                      dragelements[i].removeEventListener('dragstart',dragelem);
+	                   }
+					   for (let i = 0; i < dragelements.length; i++){
+	                      dragelements[i].addEventListener('dragstart',dragelem);
+	                   }
+					  },4000);
+					}
+				  } else {
+				    if (massElements[i].recept[0] == massElements[elem2].name){
+					   window.setTimeout(function(){
+					    addStartElement(massElements[i]);
+						magiccircleaction.removeChild(magicCircleElems[0]);
+						magiccircleaction.removeChild(magicCircleElems[0]);
+						clone = dragelements[dragelements.length - 1].firstChild.cloneNode(true);
+						clone.style.position = 'absolute';
+						clone.style.top = 165 + 'px';
+				        clone.style.left = 168 + 'px';
+						magiccircleaction.appendChild(clone);
+						menuNextElems();
+					   for (let i = 0; i < dragelements.length; i++){
+	                      dragelements[i].removeEventListener('dragstart',dragelem);
+	                   }
+					   for (let i = 0; i < dragelements.length; i++){
+	                      dragelements[i].addEventListener('dragstart',dragelem);
+	                   }
+					  },4000);
+					}
+				  }
+				}
+			  }
+			}
+		 }
+	   }
+	   /*science.onclick = function(){
+	   console.log('ok');
+	     let punkts = nextmenu.children;
+		 for (let i = 0; i < massElements.length; i++){
+		   if (punkts[a].innerHTML == massElements[i].name){
+		      holder.innerHTML = massElements[i].holder;
+			  console.log(massElements[i]);
+		   }
+		 }
+	   }*/
+    </script>
+</html>
